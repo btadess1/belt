@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<a href="/to_travel_plans">Home</a> <a href="/logout">logout</a>
+	{% if messages %}
+	<ul class="messages">
+	    {% for message in messages %}
+	    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+	        {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %}
+	        <div style="background-color: yellow; color: red; width: '100'; height:'20'; border: 
+	        2px solid black">{{ message }}</div>
+	    </li>
+	    {% endfor %}
+	</ul>
+	{% endif %}
+	<h1>Create a New Wish list</h1>
+	<form action="/add_plan/{{request.session.user_id}}" method="POST">
+		{% csrf_token %}
+		Item/Product: <input type="text" name="item"><br><br>
+		<input type="submit" value="Add"><br><br>
+	</form>
+
+</body>
+</html>

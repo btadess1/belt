@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<h1>Hello, {{request.session.user_name}}!</h1>
+
+	<h3>Your Wish list</h3>
+	<table>
+		<tr>
+			<th>Item</th>
+			<th>Added By</th>
+			<th>Date Added</th>
+			<th>Action</th>
+		</tr>
+		{% for user in usertrip %}
+			<tr>
+				<td><a href="to_trips/{{user.id}}/{{request.session.user_id}}">{{user}}</a></td>
+				<td>{{user.user.name}}</td>
+				<td>{{user.created_at}}</td>
+				<td><a href="remove/{{request.session.user_id}}/{{user.id}}">Remove From my wish List</a></td>
+			</tr>
+
+		{% endfor %}
+	</table>
+
+	<h3>Other users' Wish List</h3>
+	<table>
+		<tr>
+			<th>Item</th>
+			<th>Added By</th>
+			<th>Date Added</th>
+			<th>Action</th>
+		</tr>
+		{% for user in others %}
+			<tr>
+				<td><a href="to_trips/{{user.id}}/{{request.session.user_id}}">{{user.item}}</a></td>
+				<td>{{user.user.name}}</td>
+				<td>{{user.created_at}}</td>
+				<td><a href="/join/{{request.session.user_id}}/{{user.id}}">Add to my wish list</a></td>
+			</tr>
+
+		{% endfor %}
+	</table>
+
+	<a href="to_add_travel_plan">Add Item</a>  <a href="/logout">logout</a>
+</body>
+</html>
